@@ -1,0 +1,163 @@
+```
+
+BenchmarkDotNet v0.15.8, Windows 10 (10.0.17763.3165/1809/October2018Update/Redstone5)
+AMD Ryzen 9 5950X 3.39GHz, 1 CPU, 32 logical and 16 physical cores
+.NET SDK 11.0.100-preview.5.26302.115
+  [Host]    : .NET 10.0.5 (10.0.5, 10.0.526.15411), X64 RyuJIT x86-64-v3
+  .NET 10.0 : .NET 10.0.5 (10.0.5, 10.0.526.15411), X64 RyuJIT x86-64-v3
+  .NET 8.0  : .NET 8.0.14 (8.0.14, 8.0.1425.11118), X64 RyuJIT x86-64-v3
+  .NET 9.0  : .NET 9.0.15 (9.0.15, 9.0.1526.17522), X64 RyuJIT x86-64-v3
+
+
+```
+| Method           | Job       | Runtime   | Size   | Hit   | Mean        | Error     | StdDev    | Median      | Ratio | RatioSD | Allocated | Alloc Ratio |
+|----------------- |---------- |---------- |------- |------ |------------:|----------:|----------:|------------:|------:|--------:|----------:|------------:|
+| **Lookup_Int**       | **.NET 10.0** | **.NET 10.0** | **16**     | **False** |    **465.2 ns** |   **3.15 ns** |   **2.63 ns** |    **464.5 ns** |  **1.00** |    **0.01** |         **-** |          **NA** |
+| Lookup_Plain     | .NET 10.0 | .NET 10.0 | 16     | False |  5,310.9 ns |  91.63 ns |  85.71 ns |  5,315.9 ns | 11.42 |    0.19 |    8192 B |          NA |
+| Lookup_Override  | .NET 10.0 | .NET 10.0 | 16     | False |  2,627.2 ns |  30.93 ns |  27.42 ns |  2,624.4 ns |  5.65 |    0.06 |         - |          NA |
+| Lookup_Equatable | .NET 10.0 | .NET 10.0 | 16     | False |  1,362.3 ns |  16.29 ns |  15.24 ns |  1,359.0 ns |  2.93 |    0.04 |         - |          NA |
+| Lookup_Record    | .NET 10.0 | .NET 10.0 | 16     | False |    801.2 ns |   7.76 ns |   7.26 ns |    800.6 ns |  1.72 |    0.02 |         - |          NA |
+| Lookup_Enum      | .NET 10.0 | .NET 10.0 | 16     | False |    458.9 ns |   2.26 ns |   2.12 ns |    459.8 ns |  0.99 |    0.01 |         - |          NA |
+| Lookup_Guid      | .NET 10.0 | .NET 10.0 | 16     | False |  1,028.9 ns |   6.23 ns |   5.83 ns |  1,027.4 ns |  2.21 |    0.02 |         - |          NA |
+| Lookup_String    | .NET 10.0 | .NET 10.0 | 16     | False |  1,209.2 ns |  21.69 ns |  20.29 ns |  1,199.0 ns |  2.60 |    0.04 |         - |          NA |
+| Lookup_Int       | .NET 8.0  | .NET 8.0  | 16     | False |    914.7 ns |   4.26 ns |   3.77 ns |    915.3 ns |  1.97 |    0.01 |         - |          NA |
+| Lookup_Plain     | .NET 8.0  | .NET 8.0  | 16     | False |  4,181.2 ns |  43.97 ns |  36.72 ns |  4,175.5 ns |  8.99 |    0.09 |    8192 B |          NA |
+| Lookup_Override  | .NET 8.0  | .NET 8.0  | 16     | False |  1,333.4 ns |  13.89 ns |  11.60 ns |  1,331.0 ns |  2.87 |    0.03 |         - |          NA |
+| Lookup_Equatable | .NET 8.0  | .NET 8.0  | 16     | False |  1,293.3 ns |  15.97 ns |  14.94 ns |  1,294.3 ns |  2.78 |    0.03 |         - |          NA |
+| Lookup_Record    | .NET 8.0  | .NET 8.0  | 16     | False |    817.6 ns |   8.70 ns |   8.14 ns |    816.2 ns |  1.76 |    0.02 |         - |          NA |
+| Lookup_Enum      | .NET 8.0  | .NET 8.0  | 16     | False |    478.2 ns |   3.10 ns |   2.74 ns |    478.7 ns |  1.03 |    0.01 |         - |          NA |
+| Lookup_Guid      | .NET 8.0  | .NET 8.0  | 16     | False |    877.4 ns |   4.90 ns |   4.58 ns |    877.1 ns |  1.89 |    0.01 |         - |          NA |
+| Lookup_String    | .NET 8.0  | .NET 8.0  | 16     | False |  1,777.7 ns |  19.54 ns |  17.32 ns |  1,783.8 ns |  3.82 |    0.04 |         - |          NA |
+| Lookup_Int       | .NET 9.0  | .NET 9.0  | 16     | False |    856.5 ns |   6.94 ns |   6.49 ns |    855.3 ns |  1.84 |    0.02 |         - |          NA |
+| Lookup_Plain     | .NET 9.0  | .NET 9.0  | 16     | False |  6,183.2 ns | 105.71 ns |  98.88 ns |  6,228.4 ns | 13.29 |    0.22 |    8192 B |          NA |
+| Lookup_Override  | .NET 9.0  | .NET 9.0  | 16     | False |  1,282.5 ns |  12.12 ns |  11.34 ns |  1,286.3 ns |  2.76 |    0.03 |         - |          NA |
+| Lookup_Equatable | .NET 9.0  | .NET 9.0  | 16     | False |  1,192.4 ns |  12.65 ns |  11.83 ns |  1,193.8 ns |  2.56 |    0.03 |         - |          NA |
+| Lookup_Record    | .NET 9.0  | .NET 9.0  | 16     | False |    654.0 ns |  10.24 ns |   9.58 ns |    652.2 ns |  1.41 |    0.02 |         - |          NA |
+| Lookup_Enum      | .NET 9.0  | .NET 9.0  | 16     | False |    458.2 ns |   2.44 ns |   2.28 ns |    458.0 ns |  0.98 |    0.01 |         - |          NA |
+| Lookup_Guid      | .NET 9.0  | .NET 9.0  | 16     | False |  1,169.6 ns |   8.58 ns |   8.03 ns |  1,171.6 ns |  2.51 |    0.02 |         - |          NA |
+| Lookup_String    | .NET 9.0  | .NET 9.0  | 16     | False |  1,788.8 ns |  32.83 ns |  27.41 ns |  1,791.8 ns |  3.85 |    0.06 |         - |          NA |
+|                  |           |           |        |       |             |           |           |             |       |         |           |             |
+| **Lookup_Int**       | **.NET 10.0** | **.NET 10.0** | **16**     | **True**  |    **494.0 ns** |   **3.46 ns** |   **2.89 ns** |    **492.9 ns** |  **1.00** |    **0.01** |         **-** |          **NA** |
+| Lookup_Plain     | .NET 10.0 | .NET 10.0 | 16     | True  |  6,783.1 ns |  99.92 ns |  93.46 ns |  6,786.7 ns | 13.73 |    0.20 |   24576 B |          NA |
+| Lookup_Override  | .NET 10.0 | .NET 10.0 | 16     | True  |  3,740.8 ns |  26.53 ns |  24.81 ns |  3,737.2 ns |  7.57 |    0.06 |    8192 B |          NA |
+| Lookup_Equatable | .NET 10.0 | .NET 10.0 | 16     | True  |  1,518.9 ns |  18.30 ns |  16.22 ns |  1,519.6 ns |  3.07 |    0.04 |         - |          NA |
+| Lookup_Record    | .NET 10.0 | .NET 10.0 | 16     | True  |    877.5 ns |   4.86 ns |   4.54 ns |    877.1 ns |  1.78 |    0.01 |         - |          NA |
+| Lookup_Enum      | .NET 10.0 | .NET 10.0 | 16     | True  |    493.5 ns |   2.15 ns |   1.91 ns |    493.4 ns |  1.00 |    0.01 |         - |          NA |
+| Lookup_Guid      | .NET 10.0 | .NET 10.0 | 16     | True  |  1,185.7 ns |  13.04 ns |  12.20 ns |  1,179.3 ns |  2.40 |    0.03 |         - |          NA |
+| Lookup_String    | .NET 10.0 | .NET 10.0 | 16     | True  |  1,731.7 ns |  18.99 ns |  16.83 ns |  1,728.0 ns |  3.51 |    0.04 |         - |          NA |
+| Lookup_Int       | .NET 8.0  | .NET 8.0  | 16     | True  |    982.0 ns |   8.20 ns |   7.67 ns |    982.5 ns |  1.99 |    0.02 |         - |          NA |
+| Lookup_Plain     | .NET 8.0  | .NET 8.0  | 16     | True  |  7,974.2 ns | 136.11 ns | 172.14 ns |  7,916.9 ns | 16.14 |    0.35 |   24576 B |          NA |
+| Lookup_Override  | .NET 8.0  | .NET 8.0  | 16     | True  |  2,454.1 ns |  39.29 ns |  36.76 ns |  2,437.5 ns |  4.97 |    0.08 |    8192 B |          NA |
+| Lookup_Equatable | .NET 8.0  | .NET 8.0  | 16     | True  |  1,534.7 ns |  14.48 ns |  13.55 ns |  1,537.1 ns |  3.11 |    0.03 |         - |          NA |
+| Lookup_Record    | .NET 8.0  | .NET 8.0  | 16     | True  |    899.1 ns |   4.51 ns |   4.22 ns |    899.9 ns |  1.82 |    0.01 |         - |          NA |
+| Lookup_Enum      | .NET 8.0  | .NET 8.0  | 16     | True  |    486.3 ns |   1.92 ns |   1.79 ns |    486.4 ns |  0.98 |    0.01 |         - |          NA |
+| Lookup_Guid      | .NET 8.0  | .NET 8.0  | 16     | True  |  1,082.8 ns |   8.29 ns |   7.76 ns |  1,081.0 ns |  2.19 |    0.02 |         - |          NA |
+| Lookup_String    | .NET 8.0  | .NET 8.0  | 16     | True  |  2,694.3 ns |  53.81 ns |  71.84 ns |  2,684.2 ns |  5.45 |    0.15 |         - |          NA |
+| Lookup_Int       | .NET 9.0  | .NET 9.0  | 16     | True  |    852.4 ns |   7.43 ns |   6.95 ns |    853.7 ns |  1.73 |    0.02 |         - |          NA |
+| Lookup_Plain     | .NET 9.0  | .NET 9.0  | 16     | True  |  9,216.2 ns | 181.06 ns | 160.51 ns |  9,159.1 ns | 18.66 |    0.33 |   24576 B |          NA |
+| Lookup_Override  | .NET 9.0  | .NET 9.0  | 16     | True  |  2,323.0 ns |  42.40 ns |  39.66 ns |  2,324.6 ns |  4.70 |    0.08 |    8192 B |          NA |
+| Lookup_Equatable | .NET 9.0  | .NET 9.0  | 16     | True  |  1,415.8 ns |   6.31 ns |   5.90 ns |  1,416.6 ns |  2.87 |    0.02 |         - |          NA |
+| Lookup_Record    | .NET 9.0  | .NET 9.0  | 16     | True  |    752.6 ns |   9.46 ns |   8.85 ns |    752.0 ns |  1.52 |    0.02 |         - |          NA |
+| Lookup_Enum      | .NET 9.0  | .NET 9.0  | 16     | True  |    477.4 ns |   2.89 ns |   2.56 ns |    477.5 ns |  0.97 |    0.01 |         - |          NA |
+| Lookup_Guid      | .NET 9.0  | .NET 9.0  | 16     | True  |  1,580.1 ns |  12.52 ns |  11.71 ns |  1,577.0 ns |  3.20 |    0.03 |         - |          NA |
+| Lookup_String    | .NET 9.0  | .NET 9.0  | 16     | True  |  2,675.6 ns |  53.51 ns |  89.41 ns |  2,648.3 ns |  5.42 |    0.18 |         - |          NA |
+|                  |           |           |        |       |             |           |           |             |       |         |           |             |
+| **Lookup_Int**       | **.NET 10.0** | **.NET 10.0** | **1000**   | **False** |    **470.3 ns** |   **4.29 ns** |   **4.01 ns** |    **470.3 ns** |  **1.00** |    **0.01** |         **-** |          **NA** |
+| Lookup_Plain     | .NET 10.0 | .NET 10.0 | 1000   | False |  5,464.5 ns |  96.29 ns |  90.07 ns |  5,455.3 ns | 11.62 |    0.21 |    8192 B |          NA |
+| Lookup_Override  | .NET 10.0 | .NET 10.0 | 1000   | False |  2,381.9 ns |  18.41 ns |  17.22 ns |  2,385.6 ns |  5.07 |    0.05 |         - |          NA |
+| Lookup_Equatable | .NET 10.0 | .NET 10.0 | 1000   | False |  1,315.3 ns |  24.28 ns |  51.75 ns |  1,300.9 ns |  2.80 |    0.11 |         - |          NA |
+| Lookup_Record    | .NET 10.0 | .NET 10.0 | 1000   | False |    899.8 ns |   8.16 ns |   7.23 ns |    896.7 ns |  1.91 |    0.02 |         - |          NA |
+| Lookup_Enum      | .NET 10.0 | .NET 10.0 | 1000   | False |    467.1 ns |   2.50 ns |   2.34 ns |    467.5 ns |  0.99 |    0.01 |         - |          NA |
+| Lookup_Guid      | .NET 10.0 | .NET 10.0 | 1000   | False |  1,014.2 ns |   3.54 ns |   3.13 ns |  1,014.3 ns |  2.16 |    0.02 |         - |          NA |
+| Lookup_String    | .NET 10.0 | .NET 10.0 | 1000   | False |  1,325.2 ns |  21.05 ns |  19.69 ns |  1,330.8 ns |  2.82 |    0.05 |         - |          NA |
+| Lookup_Int       | .NET 8.0  | .NET 8.0  | 1000   | False |    980.0 ns |   5.95 ns |   5.57 ns |    978.7 ns |  2.08 |    0.02 |         - |          NA |
+| Lookup_Plain     | .NET 8.0  | .NET 8.0  | 1000   | False |  4,749.9 ns |  94.84 ns | 216.00 ns |  4,819.1 ns | 10.10 |    0.46 |    8192 B |          NA |
+| Lookup_Override  | .NET 8.0  | .NET 8.0  | 1000   | False |  2,033.2 ns |  95.40 ns | 281.28 ns |  2,191.3 ns |  4.32 |    0.60 |         - |          NA |
+| Lookup_Equatable | .NET 8.0  | .NET 8.0  | 1000   | False |  1,274.4 ns |  15.45 ns |  14.45 ns |  1,275.0 ns |  2.71 |    0.04 |         - |          NA |
+| Lookup_Record    | .NET 8.0  | .NET 8.0  | 1000   | False |    865.6 ns |  16.31 ns |  15.26 ns |    872.3 ns |  1.84 |    0.03 |         - |          NA |
+| Lookup_Enum      | .NET 8.0  | .NET 8.0  | 1000   | False |    513.8 ns |   9.01 ns |   7.99 ns |    513.1 ns |  1.09 |    0.02 |         - |          NA |
+| Lookup_Guid      | .NET 8.0  | .NET 8.0  | 1000   | False |    887.7 ns |   7.23 ns |   6.77 ns |    888.4 ns |  1.89 |    0.02 |         - |          NA |
+| Lookup_String    | .NET 8.0  | .NET 8.0  | 1000   | False |  1,878.3 ns |   9.04 ns |   8.45 ns |  1,879.2 ns |  3.99 |    0.04 |         - |          NA |
+| Lookup_Int       | .NET 9.0  | .NET 9.0  | 1000   | False |    871.1 ns |   8.86 ns |   7.85 ns |    872.3 ns |  1.85 |    0.02 |         - |          NA |
+| Lookup_Plain     | .NET 9.0  | .NET 9.0  | 1000   | False |  7,166.5 ns |  47.02 ns |  41.68 ns |  7,156.3 ns | 15.24 |    0.15 |    8192 B |          NA |
+| Lookup_Override  | .NET 9.0  | .NET 9.0  | 1000   | False |  1,263.2 ns |  17.69 ns |  16.55 ns |  1,256.6 ns |  2.69 |    0.04 |         - |          NA |
+| Lookup_Equatable | .NET 9.0  | .NET 9.0  | 1000   | False |  1,235.4 ns |  14.43 ns |  12.79 ns |  1,234.2 ns |  2.63 |    0.03 |         - |          NA |
+| Lookup_Record    | .NET 9.0  | .NET 9.0  | 1000   | False |    769.8 ns |  11.18 ns |  10.46 ns |    771.2 ns |  1.64 |    0.03 |         - |          NA |
+| Lookup_Enum      | .NET 9.0  | .NET 9.0  | 1000   | False |    469.0 ns |   2.50 ns |   2.34 ns |    469.1 ns |  1.00 |    0.01 |         - |          NA |
+| Lookup_Guid      | .NET 9.0  | .NET 9.0  | 1000   | False |    876.5 ns |   6.63 ns |   5.54 ns |    876.7 ns |  1.86 |    0.02 |         - |          NA |
+| Lookup_String    | .NET 9.0  | .NET 9.0  | 1000   | False |  1,865.7 ns |  30.58 ns |  25.54 ns |  1,866.7 ns |  3.97 |    0.06 |         - |          NA |
+|                  |           |           |        |       |             |           |           |             |       |         |           |             |
+| **Lookup_Int**       | **.NET 10.0** | **.NET 10.0** | **1000**   | **True**  |    **493.2 ns** |   **2.69 ns** |   **2.38 ns** |    **492.7 ns** |  **1.00** |    **0.01** |         **-** |          **NA** |
+| Lookup_Plain     | .NET 10.0 | .NET 10.0 | 1000   | True  |  8,262.7 ns | 123.80 ns | 115.80 ns |  8,301.5 ns | 16.75 |    0.24 |   24576 B |          NA |
+| Lookup_Override  | .NET 10.0 | .NET 10.0 | 1000   | True  |  3,789.1 ns |  20.43 ns |  19.11 ns |  3,793.5 ns |  7.68 |    0.05 |    8192 B |          NA |
+| Lookup_Equatable | .NET 10.0 | .NET 10.0 | 1000   | True  |  1,598.7 ns |  13.95 ns |  13.05 ns |  1,595.1 ns |  3.24 |    0.03 |         - |          NA |
+| Lookup_Record    | .NET 10.0 | .NET 10.0 | 1000   | True  |    984.9 ns |  12.68 ns |  11.86 ns |    989.1 ns |  2.00 |    0.03 |         - |          NA |
+| Lookup_Enum      | .NET 10.0 | .NET 10.0 | 1000   | True  |    493.1 ns |   3.18 ns |   2.82 ns |    492.7 ns |  1.00 |    0.01 |         - |          NA |
+| Lookup_Guid      | .NET 10.0 | .NET 10.0 | 1000   | True  |  1,182.8 ns |  12.18 ns |  11.40 ns |  1,184.4 ns |  2.40 |    0.03 |         - |          NA |
+| Lookup_String    | .NET 10.0 | .NET 10.0 | 1000   | True  |  1,864.5 ns |   5.67 ns |   5.30 ns |  1,865.3 ns |  3.78 |    0.02 |         - |          NA |
+| Lookup_Int       | .NET 8.0  | .NET 8.0  | 1000   | True  |    982.3 ns |   6.61 ns |   6.18 ns |    980.7 ns |  1.99 |    0.02 |         - |          NA |
+| Lookup_Plain     | .NET 8.0  | .NET 8.0  | 1000   | True  |  8,519.0 ns | 165.02 ns | 154.36 ns |  8,504.5 ns | 17.27 |    0.31 |   24576 B |          NA |
+| Lookup_Override  | .NET 8.0  | .NET 8.0  | 1000   | True  |  2,690.3 ns |  52.67 ns |  54.09 ns |  2,691.6 ns |  5.45 |    0.11 |    8192 B |          NA |
+| Lookup_Equatable | .NET 8.0  | .NET 8.0  | 1000   | True  |  1,677.2 ns |  17.64 ns |  16.50 ns |  1,683.6 ns |  3.40 |    0.04 |         - |          NA |
+| Lookup_Record    | .NET 8.0  | .NET 8.0  | 1000   | True  |  1,036.1 ns |   9.10 ns |   8.51 ns |  1,036.7 ns |  2.10 |    0.02 |         - |          NA |
+| Lookup_Enum      | .NET 8.0  | .NET 8.0  | 1000   | True  |    526.1 ns |   5.49 ns |   4.87 ns |    524.3 ns |  1.07 |    0.01 |         - |          NA |
+| Lookup_Guid      | .NET 8.0  | .NET 8.0  | 1000   | True  |  1,288.2 ns |  19.97 ns |  18.68 ns |  1,291.5 ns |  2.61 |    0.04 |         - |          NA |
+| Lookup_String    | .NET 8.0  | .NET 8.0  | 1000   | True  |  3,180.1 ns |  61.77 ns |  97.98 ns |  3,187.6 ns |  6.45 |    0.20 |         - |          NA |
+| Lookup_Int       | .NET 9.0  | .NET 9.0  | 1000   | True  |    898.6 ns |   7.82 ns |   6.93 ns |    900.7 ns |  1.82 |    0.02 |         - |          NA |
+| Lookup_Plain     | .NET 9.0  | .NET 9.0  | 1000   | True  | 10,602.5 ns | 186.13 ns | 155.43 ns | 10,625.8 ns | 21.50 |    0.32 |   24576 B |          NA |
+| Lookup_Override  | .NET 9.0  | .NET 9.0  | 1000   | True  |  2,551.3 ns |  46.35 ns |  43.35 ns |  2,549.4 ns |  5.17 |    0.09 |    8192 B |          NA |
+| Lookup_Equatable | .NET 9.0  | .NET 9.0  | 1000   | True  |  1,582.4 ns |  18.94 ns |  17.72 ns |  1,586.6 ns |  3.21 |    0.04 |         - |          NA |
+| Lookup_Record    | .NET 9.0  | .NET 9.0  | 1000   | True  |    907.0 ns |   4.91 ns |   4.10 ns |    908.2 ns |  1.84 |    0.01 |         - |          NA |
+| Lookup_Enum      | .NET 9.0  | .NET 9.0  | 1000   | True  |    492.8 ns |   1.59 ns |   1.41 ns |    492.8 ns |  1.00 |    0.01 |         - |          NA |
+| Lookup_Guid      | .NET 9.0  | .NET 9.0  | 1000   | True  |  1,090.7 ns |  12.49 ns |  11.68 ns |  1,085.5 ns |  2.21 |    0.03 |         - |          NA |
+| Lookup_String    | .NET 9.0  | .NET 9.0  | 1000   | True  |  2,976.1 ns |  57.85 ns |  61.90 ns |  2,993.6 ns |  6.03 |    0.13 |         - |          NA |
+|                  |           |           |        |       |             |           |           |             |       |         |           |             |
+| **Lookup_Int**       | **.NET 10.0** | **.NET 10.0** | **100000** | **False** |    **477.9 ns** |   **2.60 ns** |   **2.43 ns** |    **478.5 ns** |  **1.00** |    **0.01** |         **-** |          **NA** |
+| Lookup_Plain     | .NET 10.0 | .NET 10.0 | 100000 | False |  7,124.0 ns |  60.72 ns |  53.83 ns |  7,131.8 ns | 14.91 |    0.13 |    8192 B |          NA |
+| Lookup_Override  | .NET 10.0 | .NET 10.0 | 100000 | False |  2,412.9 ns |  22.69 ns |  21.23 ns |  2,414.9 ns |  5.05 |    0.05 |         - |          NA |
+| Lookup_Equatable | .NET 10.0 | .NET 10.0 | 100000 | False |  1,593.6 ns |  15.09 ns |  14.12 ns |  1,594.7 ns |  3.33 |    0.03 |         - |          NA |
+| Lookup_Record    | .NET 10.0 | .NET 10.0 | 100000 | False |    790.2 ns |  12.15 ns |  10.77 ns |    792.7 ns |  1.65 |    0.02 |         - |          NA |
+| Lookup_Enum      | .NET 10.0 | .NET 10.0 | 100000 | False |    484.9 ns |   1.83 ns |   1.62 ns |    485.0 ns |  1.01 |    0.01 |         - |          NA |
+| Lookup_Guid      | .NET 10.0 | .NET 10.0 | 100000 | False |  1,262.4 ns |  15.15 ns |  14.17 ns |  1,262.5 ns |  2.64 |    0.03 |         - |          NA |
+| Lookup_String    | .NET 10.0 | .NET 10.0 | 100000 | False |  1,926.4 ns |   9.48 ns |   8.87 ns |  1,925.8 ns |  4.03 |    0.03 |         - |          NA |
+| Lookup_Int       | .NET 8.0  | .NET 8.0  | 100000 | False |  1,020.5 ns |  13.12 ns |  12.27 ns |  1,013.2 ns |  2.14 |    0.03 |         - |          NA |
+| Lookup_Plain     | .NET 8.0  | .NET 8.0  | 100000 | False |  4,361.6 ns |  78.73 ns |  69.79 ns |  4,336.4 ns |  9.13 |    0.15 |    8192 B |          NA |
+| Lookup_Override  | .NET 8.0  | .NET 8.0  | 100000 | False |  1,921.0 ns |   8.22 ns |   7.69 ns |  1,919.1 ns |  4.02 |    0.03 |         - |          NA |
+| Lookup_Equatable | .NET 8.0  | .NET 8.0  | 100000 | False |  1,768.5 ns |   9.68 ns |   9.06 ns |  1,768.7 ns |  3.70 |    0.03 |         - |          NA |
+| Lookup_Record    | .NET 8.0  | .NET 8.0  | 100000 | False |    732.5 ns |   9.83 ns |   9.20 ns |    731.9 ns |  1.53 |    0.02 |         - |          NA |
+| Lookup_Enum      | .NET 8.0  | .NET 8.0  | 100000 | False |    528.6 ns |   8.86 ns |   8.70 ns |    526.9 ns |  1.11 |    0.02 |         - |          NA |
+| Lookup_Guid      | .NET 8.0  | .NET 8.0  | 100000 | False |  1,166.5 ns |  10.13 ns |   9.47 ns |  1,166.2 ns |  2.44 |    0.02 |         - |          NA |
+| Lookup_String    | .NET 8.0  | .NET 8.0  | 100000 | False |  2,788.2 ns |  55.66 ns |  61.87 ns |  2,774.7 ns |  5.84 |    0.13 |         - |          NA |
+| Lookup_Int       | .NET 9.0  | .NET 9.0  | 100000 | False |    897.3 ns |   6.52 ns |   6.10 ns |    897.2 ns |  1.88 |    0.02 |         - |          NA |
+| Lookup_Plain     | .NET 9.0  | .NET 9.0  | 100000 | False |  9,572.0 ns | 127.25 ns | 106.26 ns |  9,588.6 ns | 20.03 |    0.24 |    8192 B |          NA |
+| Lookup_Override  | .NET 9.0  | .NET 9.0  | 100000 | False |  2,174.1 ns |  21.00 ns |  19.65 ns |  2,180.0 ns |  4.55 |    0.05 |         - |          NA |
+| Lookup_Equatable | .NET 9.0  | .NET 9.0  | 100000 | False |  2,180.3 ns |  20.19 ns |  17.90 ns |  2,178.7 ns |  4.56 |    0.04 |         - |          NA |
+| Lookup_Record    | .NET 9.0  | .NET 9.0  | 100000 | False |  1,147.5 ns |  22.04 ns |  20.61 ns |  1,148.3 ns |  2.40 |    0.04 |         - |          NA |
+| Lookup_Enum      | .NET 9.0  | .NET 9.0  | 100000 | False |    902.0 ns |   9.65 ns |   8.55 ns |    902.8 ns |  1.89 |    0.02 |         - |          NA |
+| Lookup_Guid      | .NET 9.0  | .NET 9.0  | 100000 | False |  1,608.0 ns |  16.60 ns |  15.53 ns |  1,610.9 ns |  3.37 |    0.04 |         - |          NA |
+| Lookup_String    | .NET 9.0  | .NET 9.0  | 100000 | False |  2,515.3 ns |  27.82 ns |  26.03 ns |  2,526.5 ns |  5.26 |    0.06 |         - |          NA |
+|                  |           |           |        |       |             |           |           |             |       |         |           |             |
+| **Lookup_Int**       | **.NET 10.0** | **.NET 10.0** | **100000** | **True**  |    **510.8 ns** |   **4.60 ns** |   **3.84 ns** |    **510.2 ns** |  **1.00** |    **0.01** |         **-** |          **NA** |
+| Lookup_Plain     | .NET 10.0 | .NET 10.0 | 100000 | True  |  9,164.5 ns | 180.67 ns | 185.53 ns |  9,124.5 ns | 17.94 |    0.38 |   24576 B |          NA |
+| Lookup_Override  | .NET 10.0 | .NET 10.0 | 100000 | True  |  4,030.7 ns |  18.98 ns |  16.83 ns |  4,031.1 ns |  7.89 |    0.07 |    8192 B |          NA |
+| Lookup_Equatable | .NET 10.0 | .NET 10.0 | 100000 | True  |  2,052.2 ns |  11.34 ns |  10.60 ns |  2,052.2 ns |  4.02 |    0.04 |         - |          NA |
+| Lookup_Record    | .NET 10.0 | .NET 10.0 | 100000 | True  |  1,074.8 ns |  11.97 ns |  10.61 ns |  1,075.7 ns |  2.10 |    0.03 |         - |          NA |
+| Lookup_Enum      | .NET 10.0 | .NET 10.0 | 100000 | True  |    508.2 ns |   4.03 ns |   3.77 ns |    506.9 ns |  0.99 |    0.01 |         - |          NA |
+| Lookup_Guid      | .NET 10.0 | .NET 10.0 | 100000 | True  |  1,738.3 ns |   8.82 ns |   7.36 ns |  1,741.8 ns |  3.40 |    0.03 |         - |          NA |
+| Lookup_String    | .NET 10.0 | .NET 10.0 | 100000 | True  |  2,741.6 ns |  32.10 ns |  30.02 ns |  2,746.3 ns |  5.37 |    0.07 |         - |          NA |
+| Lookup_Int       | .NET 8.0  | .NET 8.0  | 100000 | True  |    886.4 ns |   6.35 ns |   5.94 ns |    887.5 ns |  1.74 |    0.02 |         - |          NA |
+| Lookup_Plain     | .NET 8.0  | .NET 8.0  | 100000 | True  |  8,201.8 ns |  51.81 ns |  45.93 ns |  8,188.9 ns | 16.06 |    0.14 |   24576 B |          NA |
+| Lookup_Override  | .NET 8.0  | .NET 8.0  | 100000 | True  |  3,286.2 ns |  29.36 ns |  36.06 ns |  3,279.5 ns |  6.43 |    0.08 |    8192 B |          NA |
+| Lookup_Equatable | .NET 8.0  | .NET 8.0  | 100000 | True  |  2,210.9 ns |  14.26 ns |  12.64 ns |  2,206.3 ns |  4.33 |    0.04 |         - |          NA |
+| Lookup_Record    | .NET 8.0  | .NET 8.0  | 100000 | True  |  1,141.9 ns |  14.29 ns |  13.37 ns |  1,138.9 ns |  2.24 |    0.03 |         - |          NA |
+| Lookup_Enum      | .NET 8.0  | .NET 8.0  | 100000 | True  |    521.2 ns |   2.12 ns |   1.77 ns |    521.2 ns |  1.02 |    0.01 |         - |          NA |
+| Lookup_Guid      | .NET 8.0  | .NET 8.0  | 100000 | True  |  1,801.4 ns |   9.88 ns |   8.25 ns |  1,800.3 ns |  3.53 |    0.03 |         - |          NA |
+| Lookup_String    | .NET 8.0  | .NET 8.0  | 100000 | True  |  3,853.4 ns |  19.46 ns |  17.25 ns |  3,850.1 ns |  7.54 |    0.06 |         - |          NA |
+| Lookup_Int       | .NET 9.0  | .NET 9.0  | 100000 | True  |    888.1 ns |   8.61 ns |   8.05 ns |    889.8 ns |  1.74 |    0.02 |         - |          NA |
+| Lookup_Plain     | .NET 9.0  | .NET 9.0  | 100000 | True  | 13,024.8 ns | 227.43 ns | 201.61 ns | 13,028.1 ns | 25.50 |    0.42 |   24576 B |          NA |
+| Lookup_Override  | .NET 9.0  | .NET 9.0  | 100000 | True  |  4,198.1 ns |  30.17 ns |  25.19 ns |  4,197.9 ns |  8.22 |    0.08 |    8192 B |          NA |
+| Lookup_Equatable | .NET 9.0  | .NET 9.0  | 100000 | True  |  2,595.9 ns |  36.17 ns |  32.07 ns |  2,604.8 ns |  5.08 |    0.07 |         - |          NA |
+| Lookup_Record    | .NET 9.0  | .NET 9.0  | 100000 | True  |  1,359.9 ns |  26.90 ns |  25.16 ns |  1,359.2 ns |  2.66 |    0.05 |         - |          NA |
+| Lookup_Enum      | .NET 9.0  | .NET 9.0  | 100000 | True  |    889.1 ns |  10.25 ns |   9.09 ns |    891.4 ns |  1.74 |    0.02 |         - |          NA |
+| Lookup_Guid      | .NET 9.0  | .NET 9.0  | 100000 | True  |  2,311.1 ns |  23.41 ns |  20.75 ns |  2,306.7 ns |  4.52 |    0.05 |         - |          NA |
+| Lookup_String    | .NET 9.0  | .NET 9.0  | 100000 | True  |  3,780.0 ns |  12.42 ns |  11.62 ns |  3,777.6 ns |  7.40 |    0.06 |         - |          NA |
