@@ -1,5 +1,6 @@
-using System.Runtime.Intrinsics.X86;
+﻿using System.Runtime.Intrinsics.X86;
 using BoxProof;
+using BoxProof.Models;
 
 namespace Disasm;
 
@@ -23,23 +24,27 @@ internal static class Program
 
         Dictionary<PlainKey, int> plainDict = new(size);
         Dictionary<EquatableKey, int> eqDict = new(size);
+        Dictionary<CascadeKey, int> cascadeDict = new(size);
         Dictionary<int, int> intDict = new(size);
         for (int i = 0; i < size; i++)
         {
             int v = i * 3;
             plainDict[new PlainKey { A = v, B = v + 1, C = v + 2 }] = v;
             eqDict[new EquatableKey { A = v, B = v + 1, C = v + 2 }] = v;
+            cascadeDict[new CascadeKey { A = v, B = v + 1, C = v + 2 }] = v;
             intDict[v] = v;
         }
 
         PlainKey[] plainKeys = new PlainKey[lookups];
         EquatableKey[] eqKeys = new EquatableKey[lookups];
+        CascadeKey[] cascadeKeys = new CascadeKey[lookups];
         int[] intKeys = new int[lookups];
         for (int i = 0; i < lookups; i++)
         {
             int v = i * 3 % (size * 3);
             plainKeys[i] = new PlainKey { A = v, B = v + 1, C = v + 2 };
             eqKeys[i] = new EquatableKey { A = v, B = v + 1, C = v + 2 };
+            cascadeKeys[i] = new CascadeKey { A = v, B = v + 1, C = v + 2 };
             intKeys[i] = v;
         }
 
@@ -48,6 +53,7 @@ internal static class Program
         {
             sink += Subjects.LookupPlain(plainDict, plainKeys);
             sink += Subjects.LookupEquatable(eqDict, eqKeys);
+            sink += Subjects.LookupCascade(cascadeDict, cascadeKeys);
             sink += Subjects.LookupInt(intDict, intKeys);
         }
 

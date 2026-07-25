@@ -26,18 +26,21 @@ public class BoxBench
     private Dictionary<OverrideKey, int> _overrideDict = null!;
 
     private Dictionary<EquatableKey, int> _equatableDict = null!;
+    private Dictionary<CascadeKey, int> _cascadeDict = null!;
+
     private Dictionary<RecordKey, int> _recordDict = null!;
-
     private Dictionary<EnumKey, int> _enumDict = null!;
-    private Dictionary<Guid, int> _guidDict = null!;
-    
-    private Dictionary<int, int> _intDict = null!;
-    private Dictionary<string, int> _stringDict = null!;
 
+    private Dictionary<Guid, int> _guidDict = null!;
+    private Dictionary<int, int> _intDict = null!;
+
+    private Dictionary<string, int> _stringDict = null!;
     private PlainKey[] _plainKeys = null!;
+
     private OverrideKey[] _overrideKeys = null!;
-    
     private EquatableKey[] _equatableKeys = null!;
+    
+    private CascadeKey[] _cascadeKeys = null!;
     private RecordKey[] _recordKeys = null!;
 
     private EnumKey[] _enumKeys = null!;
@@ -52,9 +55,11 @@ public class BoxBench
         Guid[] allGuids = new Guid[Size];
 
         _plainDict = new Dictionary<PlainKey, int>(Size);
-        _overrideDict = new Dictionary<OverrideKey, int>(Size);
         
+        _overrideDict = new Dictionary<OverrideKey, int>(Size);
         _equatableDict = new Dictionary<EquatableKey, int>(Size);
+        
+        _cascadeDict = new Dictionary<CascadeKey, int>(Size);
         _recordDict = new Dictionary<RecordKey, int>(Size);
         
         _enumDict = new Dictionary<EnumKey, int>(Size);
@@ -91,6 +96,13 @@ public class BoxBench
                 C = key + 2
             }] = key;
 
+            _cascadeDict[new CascadeKey
+            {
+                A = key,
+                B = key + 1,
+                C = key + 2
+            }] = key;
+
             _recordDict[new RecordKey(key, key + 1, key + 2)] = key;
             
             _enumDict[(EnumKey)key] = key;
@@ -101,9 +113,11 @@ public class BoxBench
         }
 
         _plainKeys = new PlainKey[LookupCount];
-        _overrideKeys = new OverrideKey[LookupCount];
         
+        _overrideKeys = new OverrideKey[LookupCount];
         _equatableKeys = new EquatableKey[LookupCount];
+        
+        _cascadeKeys = new CascadeKey[LookupCount];
         _recordKeys = new RecordKey[LookupCount];
         
         _enumKeys = new EnumKey[LookupCount];
@@ -142,6 +156,13 @@ public class BoxBench
                 B = key + 1,
                 C = key + 2
             };
+
+            _cascadeKeys[i] = new CascadeKey
+            {
+                A = key,
+                B = key + 1,
+                C = key + 2
+            };
             
             _recordKeys[i] = new RecordKey(key, key + 1, key + 2);
             _enumKeys[i] = (EnumKey)key;
@@ -155,9 +176,11 @@ public class BoxBench
         int expected = Hit ? LookupCount : 0;
 
         Check(nameof(Subjects.LookupPlain), CountHits(_plainDict, _plainKeys) == expected);
-        Check(nameof(Subjects.LookupOverride), CountHits(_overrideDict, _overrideKeys) == expected);
         
+        Check(nameof(Subjects.LookupOverride), CountHits(_overrideDict, _overrideKeys) == expected);
         Check(nameof(Subjects.LookupEquatable), CountHits(_equatableDict, _equatableKeys) == expected);
+        
+        Check(nameof(Subjects.LookupCascade), CountHits(_cascadeDict, _cascadeKeys) == expected);
         Check(nameof(Subjects.LookupRecord), CountHits(_recordDict, _recordKeys) == expected);
         
         Check(nameof(Subjects.LookupEnum), CountHits(_enumDict, _enumKeys) == expected);
@@ -200,6 +223,9 @@ public class BoxBench
 
     [Benchmark]
     public int Lookup_Equatable() => Subjects.LookupEquatable(_equatableDict, _equatableKeys);
+
+    [Benchmark]
+    public int Lookup_Cascade() => Subjects.LookupCascade(_cascadeDict, _cascadeKeys);
 
     [Benchmark]
     public int Lookup_Record() => Subjects.LookupRecord(_recordDict, _recordKeys);

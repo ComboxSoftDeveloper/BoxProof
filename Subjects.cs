@@ -74,6 +74,21 @@ public static class Subjects
     }
 
     [MethodImpl(MethodImplOptions.NoInlining)]
+    public static int LookupCascade(Dictionary<CascadeKey, int> dict, CascadeKey[] keys)
+    {
+        int sum = 0;
+        for (int i = 0; i < keys.Length; i++)
+        {
+            if (dict.TryGetValue(keys[i], out int value))
+            {
+                sum += value;
+            }
+        }
+
+        return sum;
+    }
+
+    [MethodImpl(MethodImplOptions.NoInlining)]
     public static int LookupRecord(Dictionary<RecordKey, int> dict, RecordKey[] keys)
     {
         int sum = 0;

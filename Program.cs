@@ -1,4 +1,4 @@
-using BenchmarkDotNet.Configs;
+﻿using BenchmarkDotNet.Configs;
 using BenchmarkDotNet.Exporters;
 using BenchmarkDotNet.Exporters.Csv;
 using BenchmarkDotNet.Running;
@@ -9,6 +9,6 @@ ManualConfig config = ManualConfig.Create(DefaultConfig.Instance)
     .AddExporter(HtmlExporter.Default)
     .AddExporter(CsvExporter.Default);
 
-BenchmarkRunner.Run<BoxBench>(config);
+BenchmarkRunner.Run<BoxBench>(config, args);
 
 // dotnet run -c Release -f net10.0
